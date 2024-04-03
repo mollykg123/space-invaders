@@ -55,7 +55,7 @@ button {
 
 }
 
-#game-grid .player .lives {
+#game-grid .player {
   background-image: url('../assets/kazuya-mishima-player1.png');
   background-repeat: no-repeat;
   background-size: contain;

@@ -55,10 +55,17 @@ let crtShkPos = 0
 const cols = 10
 const rows = 10
 const cellCount = cols * rows
+
+//  - starting position of player
 const startPlayPos = 90
-//  - current player position
 let crntPlayPos = startPlayPos
 const cells = []
+
+//  - array of starting  position of galagals
+let galBoss = [2, 3]
+let galTop = [10, 11, 12, 13, 14, 15]
+let galMid = [20, 21, 22, 23, 24, 25]
+let galBtm = [31, 32, 33, 34]
 
 
 
@@ -115,13 +122,16 @@ function handleKeyUp(evt) {
   }
   // add player to new position
   cells[crntPlayPos].classList.add('player')
+
+
 }
+
 
 // Functions
 // 4 rows of galagal show at top of grid which starts when start button is clicked
 //  - assign wave of galagal to top rows of grid (start in middle)
 
-//  - setInerval - galagal move from start position, cell by cell, to right of grid (should move every 2 seconds)
+//  - setInterval - galagal move from start position, cell by cell, to right of grid (should move every 2 seconds)
 //    - then all rows move down a level 
 //    - then move from right to left of grid
 //    - down a level 
