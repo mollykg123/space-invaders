@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  margin: auto;
+}
+ 
+.tekken-logo {
+  width: 300px;
+  transform: translateX(+15%)
+}
+
+.galaga-logo {
+  height: 150px;
+  transform: translateX(-15%)
+}
+
+.vs {
+  width: 150px
+}
+
+#game-container {
+  height: 800px;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#top-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: none;
+  width: 500px;
+}
+
+#game-grid {
+  height: 500px;
+  width: 500px;
+}
+
+#game-grid div {
+  border: none;
+  display: inline-block;
+}
+
+button {
+
+}
+
+#game-grid .player .lives {
+  background-image: url('../assets/kazuya-mishima-player1.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#game-grid .galaga-bottom {
+  background-image: url('../assets/galaga-bottom.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#game-grid .galaga-mid {
+  background-image: url('../assets/galaga-mid.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#game-grid .galaga-top {
+  background-image: url('../assets/galaga-top.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#game-grid .galaga-boss {
+  background-image: url('../assets/galaga-boss.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
