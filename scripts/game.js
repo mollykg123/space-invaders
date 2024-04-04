@@ -69,6 +69,7 @@ let galBtm = [31, 32, 33, 34]
 
 
 
+
 //? On page load
 
 // what happends when game is reset
@@ -86,49 +87,51 @@ function startGame() {
     cell.innerText = idx
     cell.dataset.index = idx
     cell.classList.add('grid-cell')
-
+    
     // put player in starting cell
     if (idx === startPlayPos) {
       cell.classList.add('player')
     }
-
+    
     // set height and width of cell
     cell.style.width = `${100 / cols}%`
     cell.style.height = `${100 / rows}%`
-
+    
     // add to the UI
     grid.append(cell)
-
+    
     // add the cell to the cells array
     cells.push(cell)
   }
 }
-
 startGame()
 
 
 function handleKeyUp(evt) {
   // remove player from current position
   cells[crntPlayPos].classList.remove('player')
-
+  
   if (evt.key === 'ArrowLeft' && crntPlayPos % cols !== 0) {
     crntPlayPos--
   } else if (evt.key === 'ArrowRight' && crntPlayPos % cols !== cols - 1) {
     crntPlayPos++
   } else if (evt.key === ' ') {
-    console.log('SHOOT')
+    // create a punch when space bar is hit
+    // cells[crntPlayPos].classList.add('punch')
+    console.log(punch)
   } else {
-    console.log('INVALID KEY')
+    console.log('INVALID  KEY')
   }
   // add player to new position
   cells[crntPlayPos].classList.add('player')
-
-
+  
+  
 }
 
 
 // Functions
 // 4 rows of galagal show at top of grid which starts when start button is clicked
+
 //  - assign wave of galagal to top rows of grid (start in middle)
 
 //  - setInterval - galagal move from start position, cell by cell, to right of grid (should move every 2 seconds)

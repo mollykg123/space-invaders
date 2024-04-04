@@ -85,3 +85,7 @@ button {
   background-size: contain;
 }
 
+#game-grid .punch {
+  background-image: url('../assets/')
+}
+
