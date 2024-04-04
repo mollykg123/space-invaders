@@ -48,7 +48,7 @@ let scoreVar = 0
 //  - levelVar
 let levelVar = 1
 //  - current galagal position - array of divs with a class of galagal
-let crntGalPos = 0
+
 //  - current shock position
 let crtShkPos = 0
 // Generate Game Board
@@ -62,13 +62,11 @@ let crntPlayPos = startPlayPos
 const cells = []
 
 //  - array of starting  position of galagals
-let galBoss = [2, 3]
-let galTop = [10, 11, 12, 13, 14, 15]
-let galMid = [20, 21, 22, 23, 24, 25]
-let galBtm = [31, 32, 33, 34]
-
-
-
+let startGalBoss = [2, 3]
+let startGalTop = [10, 11, 12, 13, 14, 15]
+let startGalMid = [20, 21, 22, 23, 24, 25]
+let startGalBtm = [31, 32, 33, 34]
+let crntGalPos = startGalBoss
 
 //? On page load
 
@@ -77,40 +75,34 @@ let galBtm = [31, 32, 33, 34]
 //  - score resets to 0
 //  - level resets to 1
 
-
 //? Execution
 
-function startGame() {
+function createGrid() {
   // Generate grid cells
   for (let idx = 0; idx < cellCount; idx++) {
     const cell = document.createElement('div')
     cell.innerText = idx
     cell.dataset.index = idx
     cell.classList.add('grid-cell')
-    
+    // set height and width of cell
+    cell.style.width = `${100 / cols}%`
+    cell.style.height = `${100 / rows}%`
     // put player in starting cell
     if (idx === startPlayPos) {
       cell.classList.add('player')
     }
-    
-    // set height and width of cell
-    cell.style.width = `${100 / cols}%`
-    cell.style.height = `${100 / rows}%`
-    
     // add to the UI
     grid.append(cell)
-    
     // add the cell to the cells array
     cells.push(cell)
   }
 }
-startGame()
+createGrid()
 
 
 function handleKeyUp(evt) {
   // remove player from current position
   cells[crntPlayPos].classList.remove('player')
-  
   if (evt.key === 'ArrowLeft' && crntPlayPos % cols !== 0) {
     crntPlayPos--
   } else if (evt.key === 'ArrowRight' && crntPlayPos % cols !== cols - 1) {
@@ -124,9 +116,68 @@ function handleKeyUp(evt) {
   }
   // add player to new position
   cells[crntPlayPos].classList.add('player')
-  
-  
 }
+
+
+
+function startGame() {
+  setInterval(() => {
+    addEnemies()
+    enemyMovement()
+
+  }, 1500)
+}
+
+function addEnemies() {
+  console.log('addEnemies')
+  // get start index of each enemy
+  // find cell with that index
+  // add a galagal class to that cell
+  startGalBtm.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.add('galaga-bottom')
+  })
+  startGalMid.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.add('galaga-mid')
+  })
+  startGalTop.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.add('galaga-top')
+  })
+  startGalBoss.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.add('galaga-boss')
+  })
+}
+
+function enemyMovement() {
+  console.log('enemyMovement')
+  // find the cells with the class of galagal
+  
+  // move one index to the right
+  // unless the array has reached the end of the columns 
+  // then go down one layer
+  // then go left
+  // unless the array has reached beginnning of columns
+  //then move down 1 
+}
+
+startGame()
+
+// if (levelVar === 1) {
+//   startGalBoss.forEach(galagals => cells[galagals].classList.add('galagal-boss'))
+// }
+
+//put 4 different rows of galaga in different starting cells
+//    - once game initiates, 4 rows of galagal show at top of grid (STRETCH - 4 different levels of galagal mean different points scored: bottom, mid, top and boss)
+//    - galagal move left to right then down a level then right to left then down a level then left to right
+//    - galgal should not be able to move out of the grid.
+//     if ()
+//   }
+
+//   )
+// }
 
 
 // Functions
@@ -155,5 +206,6 @@ function handleKeyUp(evt) {
 // user driven - player key events
 //  - start button initiates game 
 //  - assign keyboard to player moves
+// spcae button firing 
 document.addEventListener('keyup', handleKeyUp)
 

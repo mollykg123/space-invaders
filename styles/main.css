@@ -51,10 +51,6 @@ h1 {
   display: inline-block;
 }
 
-button {
-
-}
-
 #game-grid .player {
   background-image: url('../assets/kazuya-mishima-player1.png');
   background-repeat: no-repeat;
@@ -86,6 +82,8 @@ button {
 }
 
 #game-grid .punch {
-  background-image: url('../assets/')
+  background-image: url('../assets/punch.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
