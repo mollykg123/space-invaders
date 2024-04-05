@@ -83,8 +83,12 @@ Start by explaining the initial steps you took in the project.
 Did you do any sketches? If so, discuss this and include images.
 
 Any wireframes of the front end and UI? You did? Then explain this and include images.
+- did a wire frame of start page
+- wire frame of main page to help with layout, this changed whne i implemented it on wireframe
 Any ERDs? Same here, explain and include images.
+- ERD?
 Use a project management tool to plan the sprint? If so, talk through this - what tool did you use? How you allocated tickets/responsibilities, sprint timeline etc. Also include screenshots of this.
+
 Any pseudocode? 
 If it was a group or pair project - Discuss who was designated which tasks. This is very important, as engineers want to understand who owned the different code elements when looking at a group project.
 
@@ -140,7 +144,12 @@ Team dynamics/ Project management
 Tools/Tech you used
 
 Insert your Challenges here:
+Styling
+- galaga and tekken logo's for H1 - learnt translateX
 
+
+JavaScript
+- moving an array of opponents automatically around on the board
 
 
 

@@ -66,7 +66,8 @@ let startGalBoss = [2, 3]
 let startGalTop = [10, 11, 12, 13, 14, 15]
 let startGalMid = [20, 21, 22, 23, 24, 25]
 let startGalBtm = [31, 32, 33, 34]
-let crntGalPos = startGalBoss
+let crntGalPos = startGalBoss.concat(startGalTop, startGalMid, startGalBtm)
+
 
 //? On page load
 
@@ -122,17 +123,18 @@ function handleKeyUp(evt) {
 
 function startGame() {
   setInterval(() => {
-    addEnemies()
+    // removeEnemies()
     enemyMovement()
+    addEnemies()
 
   }, 1500)
 }
 
+
 function addEnemies() {
-  console.log('addEnemies')
   // get start index of each enemy
   // find cell with that index
-  // add a galagal class to that cell
+  // add a galaga class to that cell
   startGalBtm.forEach(idx => {
     const gridCell = cells[idx]
     gridCell.classList.add('galaga-bottom')
@@ -151,20 +153,27 @@ function addEnemies() {
   })
 }
 
+
+// addEnemies()
 function enemyMovement() {
-  console.log('enemyMovement')
-  // find the cells with the class of galagal
-  
-  // move one index to the right
-  // unless the array has reached the end of the columns 
-  // then go down one layer
-  // then go left
-  // unless the array has reached beginnning of columns
-  //then move down 1 
+  // crntGalPos = crntGalPos.map(enemy => enemy + 1)
+  startGalBtm = startGalBtm.map(enemy => enemy + 1)
+  startGalMid = startGalMid.map(enemy => enemy + 1)
+  // console.log(crntGalPos)
 }
 
-startGame()
+// if (gridCell.matches('.galaga-boss .galaga-top .galaga-mid .galaga-btm')) {
+// }
 
+// find the cells with the class of galaga
+// move one index to the right
+// unless the array has reached the end of the columns 
+// then go down one layer
+// then go left
+// unless the array has reached beginnning of columns
+// then move down 1 
+
+startGame()
 // if (levelVar === 1) {
 //   startGalBoss.forEach(galagals => cells[galagals].classList.add('galagal-boss'))
 // }
@@ -208,4 +217,5 @@ startGame()
 //  - assign keyboard to player moves
 // spcae button firing 
 document.addEventListener('keyup', handleKeyUp)
+
 
