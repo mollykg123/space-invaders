@@ -6,32 +6,46 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url('../assets/mishima-dojo-stage.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: black;
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  color: #39FF14;
 }
 
 h1 {
   margin: auto;
+  display: flex;
+  justify-content: center;
 }
  
 .tekken-logo {
-  width: 300px;
+  width: 25%;
   transform: translateX(+15%)
 }
 
 .galaga-logo {
-  height: 150px;
-  transform: translateX(-15%)
+  width: 20%;
+  transform: translateX(-15%);
 }
 
 .vs {
-  width: 150px
+  width: 10%;
 }
 
+
 #game-container {
-  height: 800px;
-  width: 800px;
+  height: 700px;
+  width: 700px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 1em;
+  justify-content: space-between;
 }
 
 #top-container {

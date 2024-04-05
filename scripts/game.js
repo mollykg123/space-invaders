@@ -19,7 +19,7 @@
 //    - if a shot fired by galgal hits player; deduct a life from player. 
 //    - if player shoots a galgal and it is the final galagal left on grid then GAME OVER and relevant score should appear on screen [FINAL SCORE sound effect]
 //    - if players lives drop below 1 then the player has lost the game - there should be a game over screen that appears [STRETCH - GAME OVER sound effect]
-
+//? styling
 
 //? Elements
 // Things I need to target;
@@ -28,7 +28,7 @@ const grid = document.querySelector('#game-grid')
 //  - start button on start page (stretch goal), have added 
 const startBtn = document.querySelector('#start')
 //  - cells
-// const cells = document.querySelectorAll('.grid-cell')
+const GridCells = document.querySelectorAll('.grid-cell')
 //  - scoreEl
 const scoreEl = document.querySelector('#score')
 //  - levelEl
@@ -37,6 +37,7 @@ const levelEl = document.querySelector('#level')
 const livesEl = document.querySelector('#lives')
 //  - reset button
 const resetBtn = document.querySelector('#reset')
+// background image of html
 
 
 //? Variables
@@ -66,7 +67,7 @@ let startGalBoss = [2, 3]
 let startGalTop = [10, 11, 12, 13, 14, 15]
 let startGalMid = [20, 21, 22, 23, 24, 25]
 let startGalBtm = [31, 32, 33, 34]
-let crntGalPos = startGalBoss.concat(startGalTop, startGalMid, startGalBtm)
+// const crntGalPos = startGalBoss.concat(startGalTop, startGalMid, startGalBtm)
 
 
 //? On page load
@@ -109,6 +110,7 @@ function handleKeyUp(evt) {
   } else if (evt.key === 'ArrowRight' && crntPlayPos % cols !== cols - 1) {
     crntPlayPos++
   } else if (evt.key === ' ') {
+    punch()
     // create a punch when space bar is hit
     // cells[crntPlayPos].classList.add('punch')
     console.log(punch)
@@ -119,11 +121,20 @@ function handleKeyUp(evt) {
   cells[crntPlayPos].classList.add('player')
 }
 
+function punch() {
+  // when space bar is clicked
+  //add the class .punch to the cell that is - 10 from current player position
+  // continues to minus 10 every #th of a second 
+  // until in finds a cell with an array in it
+  // if that cell has a class of galbtm top boss or mid then remove both classes.
+  
+
+}
 
 
 function startGame() {
   setInterval(() => {
-    // removeEnemies()
+    removeEnemies()
     enemyMovement()
     addEnemies()
 
@@ -155,13 +166,44 @@ function addEnemies() {
 
 
 // addEnemies()
-function enemyMovement() {
-  // crntGalPos = crntGalPos.map(enemy => enemy + 1)
-  startGalBtm = startGalBtm.map(enemy => enemy + 1)
-  startGalMid = startGalMid.map(enemy => enemy + 1)
-  startGalTop = startGalTop.map(enemy => enemy + 1)
-  startGalBoss = startGalBoss.map(enemy => enemy + 1)
-  // console.log(crntGalPos)
+function enemyMovement(evt) {
+  let crntGalPos = startGalBoss.concat(startGalTop, startGalMid, startGalBtm)
+  if (crntGalPos === crntGalPos % cols !== cols - 2) {
+    startGalBtm = startGalBtm.map(enemy => enemy += 1)
+    startGalMid = startGalMid.map(enemy => enemy += 1)
+    startGalTop = startGalTop.map(enemy => enemy += 1)
+    startGalBoss = startGalBoss.map(enemy => enemy += 1)
+  } else {
+    console.log('hello')
+
+  }
+  // enemys to not go out of right columns
+  // startGalBtm % cols !== cols - 1
+  // .some method?
+  // move enemys to the right
+
+}
+
+// if (evt.key === 'ArrowLeft' && crntPlayPos % cols !== 0) {
+//   crntPlayPos--
+
+function removeEnemies() {
+  startGalBtm.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.remove('galaga-bottom')
+  })
+  startGalMid.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.remove('galaga-mid')
+  })
+  startGalTop.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.remove('galaga-top')
+  })
+  startGalBoss.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.remove('galaga-boss')
+  })
 }
 
 // if (gridCell.matches('.galaga-boss .galaga-top .galaga-mid .galaga-btm')) {

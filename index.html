@@ -6,9 +6,12 @@
   <title>TEKKEN VS. GALAGA</title>
   <link rel="stylesheet" href="styles/main.css">
   <script defer src="scripts/game.js" charset="utf-8"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body id="body">
   <H1>
     <img class="tekken-logo" src="assets/tekken-Logo.png" alt="tekken logo">
     <img class="vs" src="assets/vs.png" alt="versus">
@@ -17,19 +20,19 @@
 
   <section id="game-container">
 
-    <section id="top-container">
-      <p id="score">SCORE: 0</p>
-      <p id="level">LEVEL: 0</p>
+    <section id="side-container">
+      <p id="score">score: 0</p>
+      <p id="level">level: 0</p>
       <div class="lives-container">
         <p id="lives">x x x</p>
       </div>
+      <button id="reset">RESET</button>
+      <button id="start">START</button>
     </section>
 
     <section id="game-grid">
     </section>
 
-    <button id="reset">RESET</button>
-    <button id="start">START</button>
   </section>
 
 </body>
