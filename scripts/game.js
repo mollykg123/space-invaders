@@ -159,6 +159,8 @@ function enemyMovement() {
   // crntGalPos = crntGalPos.map(enemy => enemy + 1)
   startGalBtm = startGalBtm.map(enemy => enemy + 1)
   startGalMid = startGalMid.map(enemy => enemy + 1)
+  startGalTop = startGalTop.map(enemy => enemy + 1)
+  startGalBoss = startGalBoss.map(enemy => enemy + 1)
   // console.log(crntGalPos)
 }
 
