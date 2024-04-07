@@ -24,54 +24,35 @@
 //? Elements
 const grid = document.querySelector('#game-grid')
 const startBtn = document.querySelector('#start')
-const GridCells = document.querySelectorAll('.grid-cell')
+// const gridCells = document.querySelectorAll('.grid-cell')
 const scoreEl = document.querySelector('#score')
-const levelEl = document.querySelector('#level')
+// const levelEl = document.querySelector('#level')
 const livesEl = document.querySelector('#lives')
 const resetBtn = document.querySelector('#reset')
-
-//? Variables
-
 let livesVar = 3
-let scoreVar = 0
-let levelVar = 1
-
+let scoreVar = null
+// let levelVar = 1
 const cols = 10
 const rows = 10
 const cellCount = cols * rows
 const ceiling = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-// galaga
-let galInt = 1500
 let galLeftRight = true
 let galaga = [2, 3,
   10, 11, 12, 13, 14, 15,
   20, 21, 22, 23, 24, 25,
   31, 32, 33, 34]
-
-// player
 let player = 94
 let crntPlayPos = player
 const cells = []
-
 const intervals = []
-
 let punchPos
 
-
-//? On page load
-
-
-//? Execution
-
-
-// ?Functions
 
 function createStartGrid() {
   // Generate grid cells
   for (let idx = 0; idx < cellCount; idx++) {
     const cell = document.createElement('div')
-    cell.innerText = idx
+    // cell.innerText = idx
     cell.dataset.index = idx
     cell.classList.add('grid-cell')
     // set height and width of cell
@@ -90,10 +71,11 @@ function createStartGrid() {
 
 function startGame() {
   createStartGrid()
-  // what happends when game is reset
-  //  - lives reset to 3
-  //  - score resets to 0
-  //  - level resets to 1
+  startGalagaMovement()
+  randomBomb()
+  livesEl.innerHTML = 'lives : ' + 3
+  scoreEl.innerHTML = 'score : ' + 0
+  // background sound here
 }
 startGame()
 
@@ -102,7 +84,7 @@ function startGalagaMovement() {
   moveGalaga()
   removeGalaga()
 }
-startGalagaMovement()
+
 
 function movePlayer(evt) {
   // remove player from current position
@@ -124,6 +106,59 @@ function movePlayer(evt) {
   cells[player].classList.add('player')
 }
 
+
+function addGalaga() {
+  galaga.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.add('galaga-bottom')
+  })
+}
+
+function moveGalaga() {
+  const galInterval = setInterval(() => {
+    removeGalaga()
+    // enemys to not go out of end columns
+    let rightCol = galaga.filter(enemy => enemy % cols === cols - 1)
+    // enemys to not go out of beginning of cols
+    let leftCol = galaga.filter(enemy => enemy % cols === 0)
+    if (galLeftRight) {
+      if (rightCol.length < 1) {
+        galaga = galaga.map(enemy => enemy += 1)
+      } else {
+        galaga = galaga.map(enemy => enemy + cols + 1)
+        galLeftRight = false
+        let btmRow = galaga.filter(enemy => enemy > (cellCount - (2 * cols)))
+        if (btmRow.length > 0) {
+          endGameLost()
+        }
+      }
+    }
+    if (!galLeftRight) {
+      if (leftCol.length < 1) {
+        galaga = galaga.map(enemy => enemy = enemy - 1)
+      } else {
+        galaga = galaga.map(enemy => enemy + cols)
+        galLeftRight = true
+        let btmRow = galaga.filter(enemy => enemy >= (cellCount - (2 * cols)))
+        if (btmRow.length > 0) {
+          endGameLost()
+        }
+      }
+    }
+    addGalaga()
+  }, 1000)
+  intervals.push(galInterval)
+}
+
+function removeGalaga() {
+  galaga.forEach(idx => {
+    const gridCell = cells[idx]
+    gridCell.classList.remove('galaga-bottom')
+  })
+
+}
+
+
 let punchArrayCrnt = []
 let punched = 0
 let newPunch = player - cols
@@ -144,7 +179,7 @@ function playerPunch() {
         galaga.splice(i, 1)
         // add function to score
         scoreVar += 100
-        document.querySelector('#score'.innerHTML = score)
+        document.getElementById('score'.innerHTML = scoreVar)
         if (galaga.length === 0) {
           endGameWon()
         }
@@ -160,145 +195,100 @@ function playerPunch() {
           cells[i].classList.remove('punch')
         }
       })
-    }, 30)
-  }, 925)
+    }, 60)
+  }, 1800)
 
 }
 
-// function addPunch() {
-// }
-
-// function removePunch() {
-//   cells[punchPos].classList.remove('punch')
-// }
-
-// continues to minus 10 every #th of a second 
-// until in finds a cell with an array in it
-// if that cell has a class of galbtm top boss or mid then remove both classes
-// create a punch when space bar is hit
-// cells[crntPlayPos].classList.add('punch')
-
-
-function addGalaga() {
-  galaga.forEach(idx => {
-    const gridCell = cells[idx]
-    gridCell.classList.add('galaga-bottom')
-  })
+function loseLife() {
+  if (livesVar === 3) {
+    livesVar -= 1
+    livesEl.innerHTML = 'lives : ' + 2
+  } else if (livesVar === 2) {
+    livesVar -= 1
+    livesEl.innerHTML = 'lives : ' + 1
+  } else if (livesVar === 1) {
+    livesVar -= 1
+    livesEl.innerHTML = 'lives : ' + 0
+    endGameLost()
+  }
 }
 
-function moveGalaga() {
-  galInt = setInterval(() => {
-    removeGalaga()
-    // enemys to not go out of end columns
-    let rightCol = galaga.filter(enemy => enemy % cols === cols - 1)
-    // enemys to not go out of beginning of cols
-    let leftCol = galaga.filter(enemy => enemy % cols === 0)
-    if (galLeftRight) {
-      if (rightCol.length < 1) {
-        galaga = galaga.map(enemy => enemy += 1)
-      } else {
-        galaga = galaga.map(enemy => enemy + cols + 1)
-        galLeftRight = false
-        let btmRow = galaga.filter(enemy => enemy > (cellCount - (2 * cols)))
-        if (btmRow.length > 0) {
-          endGameLost()
-          // return
-        }
-      }
+
+const bombArrayCrnt = []
+let bombed = 0
+let newBomb
+
+function dropBombs() {
+  const bombArray = bombArrayCrnt[bombed]
+  const bombInterval = setInterval(() => {
+    if (livesVar === 0) {
+      endGameLost()
+    } else if (galaga.length === 0) {
+      clearInterval(bombInterval)
+      endGameWon()
     }
-    if (!galLeftRight) {
-      if (leftCol.length < 1) {
-        galaga = galaga.map(enemy => enemy = enemy - 1)
-      } else {
-        galaga = galaga.map(enemy => enemy + cols)
-        galLeftRight = true
-        let btmRow = galaga.filter(enemy => enemy >= (cellCount - (2 * cols)))
-        if (btmRow.length > 0) {
-          endGameLost()
-          //return
-        }
-      }
+    cells[bombArray[0]].classList.remove('galaga-boss')
+    newBomb = bombArray[0] + cols
+    cells[newBomb].classList.add('galaga-boss')
+    bombArray.pop()
+    bombArray.push(newBomb)
+    if (cells[bombArray].classList.contains('player')) {
+      // sound effect - made contact
+      loseLife()
     }
-    addGalaga()
-    // console.log(startGalPos)
-  }, 1500)
-}
-// startGalBtm % cols !== cols - 1
-// .some method?
-// move enemys to the right
-// })
-// if (startGalBtm === startGalBtm % cols !== cols - 2) {
-//   startGalBtm = startGalBtm.map(enemy => enemy += 1)
-// } else {
-// startGalMid = startGalMid.map(enemy => enemy += 1)
-// startGalTop = startGalTop.map(enemy => enemy += 1)
-// startGalBoss = startGalBoss.map(enemy => enemy += 1)
-
-// if (evt.key === 'ArrowLeft' && crntPlayPos % cols !== 0) {
-//   crntPlayPos--
-
-function removeGalaga() {
-  galaga.forEach(idx => {
-    const gridCell = cells[idx]
-    gridCell.classList.remove('galaga-bottom')
-  })
-
+    if (newBomb >= 84) {
+      clearInterval(bombInterval)
+      setTimeout(() => {
+        cells[bombArray].classList.remove('galaga-boss')
+      }, 300)
+    }
+  }, 800)
+  intervals.push(bombInterval)
 }
 
-function playerDefeated() {
-  console.log('player defeated')
+
+let randomBombs
+
+function randomBomb() {
+  const randomBombInterval = setInterval(() => {
+    randomBombs = galaga[Math.floor(Math.random() * galaga.length)]
+    defineBombs()
+  }, 1000)
+  intervals.push(randomBombInterval)
+  if (galaga.length === 0) {
+    clearInterval(randomBombInterval)
+    console.log('hello')
+  }
 }
 
-// find the cells with the class of galaga
-// move one index to the right
-// unless the array has reached the end of the columns 
-// then go down one layer
-// then go left
-// unless the array has reached beginnning of columns
-// then move down 1 
-
-// startGame()
-// if (levelVar === 1) {
-//   startGalBoss.forEach(galagals => cells[galagals].classList.add('galagal-boss'))
-// }
-
-//put 4 different rows of galaga in different starting cells
-//    - once game initiates, 4 rows of galagal show at top of grid (STRETCH - 4 different levels of galagal mean different points scored: bottom, mid, top and boss)
-//    - galagal move left to right then down a level then right to left then down a level then left to right
-//    - galgal should not be able to move out of the grid.
-
-
-
-//  - assign wave of galagal to top rows of grid (start in middle)
-
-//  - setInterval - galagal move from start position, cell by cell, to right of grid (should move every 2 seconds)
-//    - then all rows move down a level 
-//    - then move from right to left of grid
-//    - down a level 
-
-//  - galagal should be shooting at random intervals as they are moving down the board;
-//    - if a cell containing the class .player1 is hit, this should removed a life
-
-//  - player can move left to right and use space bar to send shockwave upwards through the cells; 
-//    - if a cell containing a galagal class is hit, this should remove the galagal from the board AND;
-//    - it will add + 50 to player score
-
-//  - this loops until either;
-//    - galagal reach bottom of page - YOU LOSE page
-function endGameLost() {
-  clearTimeout(galInt)
-  console.log('you lost!')
-}
-//    OR
-//    - player has defeated all galagals - YOU WIN and show score
-function endGameWon() {
-  console.log('you win!')
+function defineBombs() {
+  cells[randomBombs + cols].classList.add('galaga-boss')
+  bombArrayCrnt.push([randomBombs + cols])
+  dropBombs()
+  bombed += 1
 }
 
 
 //? Events
-// user driven - player key events
-//  - start button initiates game 
-//  - assign keyboard to player moves
-// spcae button firing 
+
 document.addEventListener('keyup', movePlayer)
+
+function resetGame() {
+  resetBtn.addEventListener('click', () =>{
+    document.location.reload(true)
+  })
+}
+
+function endGameLost() {
+  intervals.map(interval => clearInterval(interval))
+  // hide grid and show reset or next level button
+  console.log('YOU LOST')
+  resetGame()
+}
+//    - player has defeated all galagals - YOU WIN and show score
+function endGameWon() {
+  console.log('you win!')
+  // hide grid and show YOU WON! page 
+  resetGame()
+}
