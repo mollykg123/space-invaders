@@ -180,7 +180,7 @@ let crntGalPos = startGalBoss.concat(startGalTop, startGalMid, startGalBtm)
 
 // addEnemies()
 function moveGalaga() {
-  galInt - setInterval(() => {
+  galInt = setInterval(() => {
     console.log(crntGalPos)
     // removeGalaga()
     // enemys to not go out of end columns
@@ -194,7 +194,7 @@ function moveGalaga() {
       } else {
         crntGalPos = crntGalPos.map(enemy => enemy + cols + 1)
         galLeftRight = false
-        let btmRow = crntGalPos.filter(enemy => enemy > (cellCount - (2 * cols)))
+        let btmRow = crntGalPos.filter(enemy => enemy > (cellCount - (1 * cols)))
         if (btmRow.length > 0) {
           endGame()
           return
@@ -207,7 +207,7 @@ function moveGalaga() {
       } else {
         crntGalPos = crntGalPos.map(enemy => enemy + cols)
         GalLeftRight = true
-        let btmRow = crntGalPos.filter(enemy => enemy >= (cellCount - (2 * cols)))
+        let btmRow = crntGalPos.filter(enemy => enemy >= (cellCount - (1 * cols)))
         if (btmRow.length > 0) {
           endGame()
           return
@@ -215,7 +215,7 @@ function moveGalaga() {
       }
     }
     // addGalaga()
-  }, galInt)
+  }, 1500)
 }
 // startGalBtm % cols !== cols - 1
 // .some method?
@@ -224,7 +224,6 @@ function moveGalaga() {
 // if (startGalBtm === startGalBtm % cols !== cols - 2) {
 //   startGalBtm = startGalBtm.map(enemy => enemy += 1)
 // } else {
-//   console.log('hello')
 // startGalMid = startGalMid.map(enemy => enemy += 1)
 // startGalTop = startGalTop.map(enemy => enemy += 1)
 // startGalBoss = startGalBoss.map(enemy => enemy += 1)
@@ -300,6 +299,9 @@ function playerDefeated() {
 
 //  - this loops until either;
 //    - galagal reach bottom of page - YOU LOSE page
+function endGame() {
+  clearTimeout(galInt)
+}
 //    OR
 //    - player has defeated all galagals - YOU WIN and show score
 
