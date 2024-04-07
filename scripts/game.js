@@ -9,7 +9,7 @@
 //    - the grid that the game is played on - should see your player at bottom (as a stretch - select player would show over this then hide once player is selected)
 //    - Reset button just below grid
 // 3. Game play;
-//    - generate game-grid
+//    - generate game-grid - Player should appear on page load
 //    - once game initiates, 4 rows of galagal show at top of grid (STRETCH - 4 different levels of galagal mean different points scored: bottom, mid, top and boss)
 //    - galagal move left to right then down a level then right to left then down a level then left to right
 //    - galgal should not be able to move out of the grid.
@@ -48,6 +48,10 @@ let livesVar = 3
 let scoreVar = 0
 //  - levelVar
 let levelVar = 1
+//  - interval for galaga movement
+let galInt = 1500
+// - GalMovement 
+let galLeftRight = true
 //  - current galagal position - array of divs with a class of galagal
 
 //  - current shock position
@@ -79,7 +83,17 @@ let startGalBtm = [31, 32, 33, 34]
 
 //? Execution
 
-function createGrid() {
+// function startGame() {
+  //   createGame()
+  // }
+  
+  // function createGame() {
+    //   createStartGrid()
+    //   movePlayer()
+//   addGalaga()
+// }
+
+function createStartGrid() {
   // Generate grid cells
   for (let idx = 0; idx < cellCount; idx++) {
     const cell = document.createElement('div')
@@ -99,10 +113,10 @@ function createGrid() {
     cells.push(cell)
   }
 }
-createGrid()
+createStartGrid()
 
 
-function handleKeyUp(evt) {
+function movePlayer(evt) {
   // remove player from current position
   cells[crntPlayPos].classList.remove('player')
   if (evt.key === 'ArrowLeft' && crntPlayPos % cols !== 0) {
@@ -128,21 +142,19 @@ function punch() {
   // until in finds a cell with an array in it
   // if that cell has a class of galbtm top boss or mid then remove both classes.
   
-
+  
 }
 
 
-function startGame() {
-  setInterval(() => {
-    removeEnemies()
-    enemyMovement()
-    addEnemies()
-
-  }, 1500)
+function startGalagaMovement() {
+  removeGalaga()
+  moveGalaga()
+  addGalaga()
+  
 }
+startGalagaMovement()
 
-
-function addEnemies() {
+function addGalaga() {
   // get start index of each enemy
   // find cell with that index
   // add a galaga class to that cell
@@ -163,31 +175,64 @@ function addEnemies() {
     gridCell.classList.add('galaga-boss')
   })
 }
+let crntGalPos = startGalBoss.concat(startGalTop, startGalMid, startGalBtm)
 
 
 // addEnemies()
-function enemyMovement(evt) {
-  let crntGalPos = startGalBoss.concat(startGalTop, startGalMid, startGalBtm)
-  if (crntGalPos === crntGalPos % cols !== cols - 2) {
-    startGalBtm = startGalBtm.map(enemy => enemy += 1)
-    startGalMid = startGalMid.map(enemy => enemy += 1)
-    startGalTop = startGalTop.map(enemy => enemy += 1)
-    startGalBoss = startGalBoss.map(enemy => enemy += 1)
-  } else {
-    console.log('hello')
+function moveGalaga() {
+  galInt - setInterval(() => {
+    console.log(crntGalPos)
+    // removeGalaga()
+    // enemys to not go out of end columns
+    let rightCol = crntGalPos.filter(enemy => enemy % cols === cols - 1)
+    // enemys to not go out of beginning of cols
+    let leftCol = crntGalPos.filter(enemy => enemy % cols === 0)
 
-  }
-  // enemys to not go out of right columns
-  // startGalBtm % cols !== cols - 1
-  // .some method?
-  // move enemys to the right
-
+    if (galLeftRight) {
+      if (rightCol.length < 1) {
+        crntGalPos = crntGalPos.map(enemy => enemy += 1)
+      } else {
+        crntGalPos = crntGalPos.map(enemy => enemy + cols + 1)
+        galLeftRight = false
+        let btmRow = crntGalPos.filter(enemy => enemy > (cellCount - (2 * cols)))
+        if (btmRow.length > 0) {
+          endGame()
+          return
+        }
+      }
+    }
+    if (!galLeftRight) {
+      if (leftCol.length < 1) {
+        crntGalPos = crntGalPos.map(enemy => enemy = enemy - 1)
+      } else {
+        crntGalPos = crntGalPos.map(enemy => enemy + cols)
+        GalLeftRight = true
+        let btmRow = crntGalPos.filter(enemy => enemy >= (cellCount - (2 * cols)))
+        if (btmRow.length > 0) {
+          endGame()
+          return
+        }
+      }
+    }
+    // addGalaga()
+  }, galInt)
 }
+// startGalBtm % cols !== cols - 1
+// .some method?
+// move enemys to the right
+// })
+// if (startGalBtm === startGalBtm % cols !== cols - 2) {
+//   startGalBtm = startGalBtm.map(enemy => enemy += 1)
+// } else {
+//   console.log('hello')
+// startGalMid = startGalMid.map(enemy => enemy += 1)
+// startGalTop = startGalTop.map(enemy => enemy += 1)
+// startGalBoss = startGalBoss.map(enemy => enemy += 1)
 
 // if (evt.key === 'ArrowLeft' && crntPlayPos % cols !== 0) {
 //   crntPlayPos--
 
-function removeEnemies() {
+function removeGalaga() {
   startGalBtm.forEach(idx => {
     const gridCell = cells[idx]
     gridCell.classList.remove('galaga-bottom')
@@ -206,6 +251,9 @@ function removeEnemies() {
   })
 }
 
+function playerDefeated() {
+  console.log('player defeated')
+}
 // if (gridCell.matches('.galaga-boss .galaga-top .galaga-mid .galaga-btm')) {
 // }
 
@@ -217,7 +265,7 @@ function removeEnemies() {
 // unless the array has reached beginnning of columns
 // then move down 1 
 
-startGame()
+// startGame()
 // if (levelVar === 1) {
 //   startGalBoss.forEach(galagals => cells[galagals].classList.add('galagal-boss'))
 // }
@@ -260,6 +308,6 @@ startGame()
 //  - start button initiates game 
 //  - assign keyboard to player moves
 // spcae button firing 
-document.addEventListener('keyup', handleKeyUp)
+document.addEventListener('keyup', movePlayer)
 
 
