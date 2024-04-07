@@ -75,6 +75,7 @@ h1 {
   background-image: url('../assets/galaga-bottom.png');
   background-repeat: no-repeat;
   background-size: contain;
+  transform: rotateX(180deg);
 }
 
 #game-grid .galaga-mid {
