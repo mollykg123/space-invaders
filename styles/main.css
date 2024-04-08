@@ -90,8 +90,8 @@ h1 {
   background-size: contain;
 }
 
-#game-grid .galaga-boss {
-  background-image: url('../assets/galaga-boss.png');
+#game-grid .galaga-bomb {
+  background-image: url('../assets/galaga-bomb.png');
   background-repeat: no-repeat;
   background-size: contain;
 }
