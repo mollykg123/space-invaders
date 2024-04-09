@@ -62,22 +62,22 @@ let punchPos
 
 //? sound effects
 const playerHit = new Audio()
-playerHit.src = 'assets/bomb-hit-player.mp3'
+playerHit.src = '../assets/bomb-hit-player.mp3'
 playerHit.volume = 0.5
 const galagaHit = new Audio()
-galagaHit.src = 'assets/player-hit-galaga.mp3'
+galagaHit.src = '../assets/player-hit-galaga.mp3'
 galagaHit.volume = 0.5
 const playerWon = new Audio()
-playerWon.src = 'assets/you-win-tekken.mp3'
+playerWon.src = '../assets/you-win-tekken.mp3'
 playerWon.volume = 0.5
 const playerLose = new Audio()
-playerLose.src = 'assets/ko-endGameLose.mp3'
+playerLose.src = '../assets/ko-endGameLose.mp3'
 playerLose.volume = 0.5
 const punchRelease = new Audio()
-punchRelease.src = 'assets/punch-release.mp3'
+punchRelease.src = '../assets/punch-release.mp3'
 punchRelease.volume = 0.5
 const backgroundSound = new Audio()
-backgroundSound.src = 'assets/background-sound.mp3'
+backgroundSound.src = '../assets/background-sound.mp3'
 backgroundSound.volume = 0.2
 
 
@@ -385,6 +385,8 @@ function resetGame(evt) {
     galaga = startGalaga
     grid.innerHTML = ''
     startGame()
+    scoreVar = 0
+    livesVar = 3
   }
 }
 window.addEventListener('keyup', resetGame)
