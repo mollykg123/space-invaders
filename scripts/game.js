@@ -49,7 +49,7 @@ let galaga = [2, 3,
   10, 11, 12, 13, 14, 15,
   20, 21, 22, 23, 24, 25,
   31, 32, 33, 34]
-let startGalaga = [2, 3,
+const startGalaga = [2, 3,
   10, 11, 12, 13, 14, 15,
   20, 21, 22, 23, 24, 25,
   31, 32, 33, 34]
@@ -61,24 +61,20 @@ let punchPos
 
 
 //? sound effects
-const playerHit = new Audio()
-playerHit.src = '../assets/bomb-hit-player.mp3'
+const playerHit = new Audio('../assets/bomb-hit-player.mp3')
 playerHit.volume = 0.5
-const galagaHit = new Audio()
-galagaHit.src = '../assets/player-hit-galaga.mp3'
+const galagaHit = new Audio('../assets/player-hit-galaga.mp3')
 galagaHit.volume = 0.5
-const playerWon = new Audio()
-playerWon.src = '../assets/you-win-tekken.mp3'
+const playerWon = new Audio('../assets/you-win-tekken.mp3')
 playerWon.volume = 0.5
-const playerLose = new Audio()
-playerLose.src = '../assets/ko-endGameLose.mp3'
+const playerLose = new Audio('../assets/ko-endGameLose.mp3')
 playerLose.volume = 0.5
-const punchRelease = new Audio()
-punchRelease.src = '../assets/punch-release.mp3'
+const punchRelease = new Audio('../assets/punch-release.mp3')
 punchRelease.volume = 0.5
-const backgroundSound = new Audio()
-backgroundSound.src = '../assets/background-sound.mp3'
+const backgroundSound = new Audio('../assets/background-sound.mp3')
 backgroundSound.volume = 0.2
+const fight = new Audio('../assets/fight-101soundboards.mp3')
+fight.volume = 0.5
 
 
 // add a start page to the game with how to:
@@ -130,6 +126,7 @@ function startGame() {
   scoreEl.innerHTML = 'score : ' + 0
   // background sound here
   backgroundSound.play()
+  fight.play()
 }
 
 function startGalagaMovement() {
@@ -356,6 +353,7 @@ document.addEventListener('keyup', movePlayer)
 
 function endGameLost() {
   // clear all intervals
+  intervals.map(interval => clearInterval(interval))
   // hide grid and show reset or next level button
   grid.style.visibility = 'hidden'
   loser.style.visibility = 'visible'
@@ -366,6 +364,7 @@ function endGameLost() {
 }
 //    - player has defeated all galagals - YOU WIN and show score
 function endGameWon() {
+  intervals.map(interval => clearInterval(interval))
   grid.style.visibility = 'hidden'
   winner.style.visibility = 'visible'
   const finalScore = document.getElementsByClassName('final-score')
