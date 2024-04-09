@@ -12,23 +12,36 @@
 </head>
 
 <body id="body">
-  <H1>
+  <h1>
     <img class="tekken-logo" src="assets/tekken-Logo.png" alt="tekken logo">
     <img class="vs" src="assets/vs.png" alt="versus">
     <img class="galaga-logo" src="assets/galaga-logo.png" alt="galaga logo">
-  </H1>
+  </h1>
 
-  <section id="game-container">
-    <section id="-container">
-      <p id="score"></p>
-      <div class="lives-container">
-        <p id="lives"></p>
-      </div>
-    </section>
-    <button id="reset">RESET</button>
+  <section id="top-container" style="visibility: visible;" onload="startPage()">
+    <div class="score-container">
+      <p id="score">score: </p>
+    </div>
+    <div class="lives-container">
+      <p id="lives">lives: </p>
+    </div>
+  </section>
+  <section id="game-container" style="visibility: visible;" onload="startPage()">
+    <div id="start">
+      <h2 class="typed-out">how to: <br>
+        destroy all galaga before they get into the dojo<br>
+        right and left arrows =  move player<br>
+        space bar = death fist<br>
+        +100 points per galaga.<br>
+        press 'S' to start game.
+    </h2></div>
+    <div id="loser"><h2>you lose! Want to play again?<br>press 'r' to reset game</h2></div>
+    <div id="winner"><h2>you win! Play again to beat your score<span class="final-score"></span>!<br>press 'r' to reset game</h2></div>
     <section id="game-grid"></section>
   </section>
 
 </body>
 
 </html>
+
+<!-- style="visibility: visible;" onload="startPage()" -->

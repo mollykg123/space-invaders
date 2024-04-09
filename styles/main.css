@@ -39,14 +39,53 @@ h1 {
   width: 10%;
 }
 
+#start {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+#loser {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+#winner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+h2 {
+  letter-spacing: 3px;
+  line-height: 2;
+  text-align: right;
+}
 
 #game-container {
-  height: 700px;
+  height: 500px;
   width: 700px;
   display: flex;
   margin-top: 1em;
-  justify-content: space-between;
+  justify-content: center;
+  /* display: inline-block; */
 }
+
+/* .typed-out {
+  overflow: hidden;
+  border-right: .15em solid #39FF14;
+  white-space: no-wrap;
+  animation: 
+  typing 3s steps(50, end) forwards;
+  font-size: 1.6em;
+  width: 0;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}  */
 
 #top-container {
   display: flex;
@@ -64,6 +103,7 @@ h1 {
   border: none;
   display: inline-block;
 }
+
 
 #game-grid .player {
   background-image: url('../assets/kazuya-mishima-player1.png');

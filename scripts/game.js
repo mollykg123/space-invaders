@@ -23,14 +23,16 @@
 
 //? Elements
 const grid = document.querySelector('#game-grid')
-const startBtn = document.querySelector('#start')
 // const gridCells = document.querySelectorAll('.grid-cell')
-const scoreEl = document.querySelector('#score')
 // const levelEl = document.querySelector('#level')
+const body = document.body
+const gameContainer = document.querySelector('#game-container')
+const startBtn = document.querySelector('#start-button')
+const startWindow = document.querySelector('#start')
 const livesEl = document.querySelector('#lives')
-const resetBtn = document.querySelector('#reset')
-const winner = document.querySelector('#win')
-const loser = document.querySelector('#lose')
+const scoreEl = document.querySelector('#score')
+const loser = document.querySelector('#loser')
+const winner = document.querySelector('#winner')
 
 //? Variables
 let livesVar = 3
@@ -47,8 +49,12 @@ let galaga = [2, 3,
   10, 11, 12, 13, 14, 15,
   20, 21, 22, 23, 24, 25,
   31, 32, 33, 34]
+let startGalaga = [2, 3,
+  10, 11, 12, 13, 14, 15,
+  20, 21, 22, 23, 24, 25,
+  31, 32, 33, 34]
 let player = 94
-const cells = []
+let cells = []
 const intervals = []
 let punchPos
 // let gamePlay = false
@@ -74,19 +80,24 @@ const backgroundSound = new Audio()
 backgroundSound.src = 'assets/background-sound.mp3'
 backgroundSound.volume = 0.2
 
-startGame()
 
 // add a start page to the game with how to:
 function startPage() {
-
+  document.body.style.visibility = 'visible'
+  startWindow.style.visibility = 'visible'
+  grid.style.visibility = 'hidden'
+  winner.style.visibility = 'hidden'
+  loser.style.visibility = 'hidden'
+  livesEl.style.visibility = 'hidden'
+  scoreEl.style.visibility = 'hidden'
 }
-
+window.addEventListener('load', startPage)
 
 function createStartGrid() {
   // Generate grid cells
   for (let idx = 0; idx < cellCount; idx++) {
     const cell = document.createElement('div')
-    cell.innerText = idx
+    // cell.innerText = idx
     cell.dataset.index = idx
     cell.classList.add('grid-cell')
     // set height and width of cell
@@ -100,18 +111,25 @@ function createStartGrid() {
     grid.append(cell)
     // add the cell to the cells array
     cells.push(cell)
+    console.log(cells)
   }
 }
 
 function startGame() {
+  grid.style.visibility = 'visible'
+  startWindow.style.visibility = 'hidden'
+  winner.style.visibility = 'hidden'
+  loser.style.visibility = 'hidden'
   grid.style.position = 'absolute'
   createStartGrid()
   startGalagaMovement()
   randomBomb()
+  livesEl.style.visibility = 'visible'
+  scoreEl.style.visibility = 'visible'
   livesEl.innerHTML = 'lives : ' + 3
   scoreEl.innerHTML = 'score : ' + 0
-  backgroundSound.play()
   // background sound here
+  backgroundSound.play()
 }
 
 function startGalagaMovement() {
@@ -120,6 +138,15 @@ function startGalagaMovement() {
   removeGalaga()
 }
 
+function startKey(evt) {
+  if (evt.key === 's') {
+    grid.style.visibility = 'visible'
+    startWindow.style.visibility = 'hidden'
+    startGame()
+  }
+}
+
+document.addEventListener('keydown', startKey)
 
 function movePlayer(evt) {
   // remove player from current position
@@ -222,6 +249,16 @@ function playerPunch() {
           endGameWon()
         }
       }
+      // if (punchArray.includes(newBomb[i])) {
+      //   // sound effect for punch hitting bomb
+      //   console.log('bomb hit')
+      //   // remove class of bomb from newBomb array
+      //   cells[newPunch].classList.remove('newBomb', 'punch')
+      //   newBomb.splice(i, 1)
+      //   clearInterval(punchInt)
+      //   scoreVar += 50
+      //   updateScore()
+      // }
     }
   }, 200)
   intervals.push(punchInt)
@@ -279,7 +316,7 @@ function dropBombs() {
       playerHit.play()
       loseLife()
     }
-    if (newBomb >= 84) {
+    if (newBomb >= 89) {
       clearInterval(bombInt)
       setTimeout(() => {
         cells[bombArray].classList.remove('galaga-bomb')
@@ -317,28 +354,38 @@ function defineBombs() {
 
 document.addEventListener('keyup', movePlayer)
 
-function resetGame() {
-  resetBtn.addEventListener('click', () => {
-    document.location.reload(true)
-  })
-}
-
-
 function endGameLost() {
-  intervals.map(interval => clearInterval(interval))
+  // clear all intervals
   // hide grid and show reset or next level button
+  grid.style.visibility = 'hidden'
+  loser.style.visibility = 'visible'
   backgroundSound.pause()
   playerLose.play()
-  console.log('YOU LOST')
+  console.log(intervals)
   resetGame()
 }
 //    - player has defeated all galagals - YOU WIN and show score
 function endGameWon() {
-  intervals.map(interval => clearInterval(interval))
-
+  grid.style.visibility = 'hidden'
+  winner.style.visibility = 'visible'
+  const finalScore = document.getElementsByClassName('final-score')
+  console.log(finalScore)
+  finalScore.innerHTML = `${scoreVar}`
   backgroundSound.pause()
   playerWon.play()
-  console.log('you win!')
   // hide grid and show YOU WON! page 
   resetGame()
 }
+
+function resetGame(evt) {
+  console.log(evt)
+  if (evt.key === 'r') {
+    intervals.map(interval => clearInterval(interval))
+    cells = []
+    galaga = startGalaga
+    grid.innerHTML = ''
+    startGame()
+  }
+}
+window.addEventListener('keyup', resetGame)
+
