@@ -1,109 +1,93 @@
-Description
+Description:
+Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet's surface using a mounted gun turret.
+
+The player can only move left or right. The aliens also move from left to right, and also down each time the reach the side of the screen. The aliens also periodically drop bombs towards the player.
+
+Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet's surface.
+
 
 Instructions
 
-Here, give a short description of the project. It can be a couple of sentences where you discuss the point in time during the course that you completed it, the topic of the project and potentially the tech stack.
-
-Insert your Description here:
-
-
-
-Deployment link
-
-Instructions
-
-Here include the information on where the deployed project can be found. If login details are needed to access the full project, make sure you include them.
-
-If you have not yet deployed your project, you can add this in later.
-
-Insert your Deployment link here:
-
-
+please follow this link to play game (instructions on start page); https://mollykg123.github.io/space-invaders/
 
 
 Getting Started/Code Installation
 
 Instructions
 
-Explain how the reader accesses your code. Include a step by step approach.
+Clone or download the repo
 
-Insert your Getting Started/Code Installation here:
-
-
-
+Open the index.html in your browser of choice
 
 
 Timeframe & Working Team (Solo/Pair/Group)
 
-Instructions
-
-Share the timeframe given for the project and whether you worked independently, in a pair, or in a group.
-
-If you worked in a pair or group, include the names of the people you collaborated with. As a bonus, you can also provide links to their GitHub repo.
-
-Insert your Timeframe & Working Team here:
+7 days, individual.
 
 
+Technologies Used:
 
-
-
-Technologies Used
-
-Instructions
-
-List every technology you used to complete the project. This can be in one long list, or broken down into categories (Back End, Front End, Development Tools).
-
-Insert your Technologies Used here:
-
-
-
-
-
-Brief
-Instructions
-
-Include the brief set by your instructional team here. This sets the context of the project you were working towards and mimics briefs you will be set later in your future roles.
-
-This can either be in bullets or in a paragraph.
-
+HTML5 with HTML5 audio
+CSS3
+JavaScript (ES13)
+Git
+GitHub
+Google Fonts
 
 Insert your Brief here:
+# Space Invaders
 
 
+![space invaders](https://media.git.generalassemb.ly/user/15120/files/daf26380-fec9-11e8-9276-dd4cee934d49)
 
+Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet's surface using a mounted gun turret.
+
+The player can only move left or right. The aliens also move from left to right, and also down each time the reach the side of the screen. The aliens also periodically drop bombs towards the player.
+
+Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet's surface.
+
+## Resources
+
+* [Space Invaders 1978 - Arcade Gameplay - Youtube](https://www.youtube.com/watch?v=MU4psw3ccUI)
+* [Space Invaders - Wikipedia](https://en.wikipedia.org/wiki/Space_Invaders)
+
+## Requirements
+
+* The player should be able to clear at least one wave of aliens
+* The player's score should be displayed at the end of the game
+
+## Suggested enhancements
+
+* Responsive design
+* Each wave gets more difficult
+* Persistent leaderboard using `localStorage`
+
+## Challenges
+
+The main challenge here is the movement of large groups of aliens in formation, and the animation of the bombs and player's shots. There are several approaches here, with collision detection being the more challenging.
+
+## Tips
+
+* Make sure you spend plenty of time planning _before_ you start coding
+* Make sure you understand all of the rules of the game
+* Make a checklist of all the features you want to add to the game
+* Keep It Stupid Simple
+* Refactor your code as you go
+* Make sure you have a good idea of what your MVP is and only add extra features once you have achieved it
+* Do just enough styling to get started, then once you have your MVP polish up the styling before moving on
 
 Planning
 
 Instructions
 
-The planning stage is important, as all projects in your future roles will have detailed plans before any coding happens. It is a great experience to share with potential engineer employers, as this reflects real engineering team practices. 
+<insert planning and wireframes here>
 
-Start by explaining the initial steps you took in the project. 
+Completed a wireframe for the start page and main game page. 
 
-Did you do any sketches? If so, discuss this and include images.
-
-Any wireframes of the front end and UI? You did? Then explain this and include images.
-- did a wire frame of start page
-- wire frame of main page to help with layout, this changed whne i implemented it on wireframe
-Any ERDs? Same here, explain and include images.
-- ERD?
-Use a project management tool to plan the sprint? If so, talk through this - what tool did you use? How you allocated tickets/responsibilities, sprint timeline etc. Also include screenshots of this.
+The wire frame changed slightly when i implemented into the game 
 
 Any pseudocode? 
-If it was a group or pair project - Discuss who was designated which tasks. This is very important, as engineers want to understand who owned the different code elements when looking at a group project.
-
-For each project, review the above bullets and discuss every step you took in the planning stage, including the relevant images.
-
-Not every project will include the above, but it’s important to discuss any of the bullets that you did implement.
-
-Insert your Planning here:
-
-
-
-
-
-
-
+<insert pseudocode here>
 
 Build/Code Process
 
